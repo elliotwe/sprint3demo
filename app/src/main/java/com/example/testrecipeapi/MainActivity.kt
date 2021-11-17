@@ -28,18 +28,16 @@ class MainActivity : AppCompatActivity() {
 
         val btnSearch = findViewById<Button>(R.id.btnSearch)
 
-
         btnSearch.setOnClickListener {
             val txtSearchVal = findViewById<TextInputEditText>(R.id.txtSearch)
 
             val str = txtSearchVal.text.toString()
 
-
             doAsync {
                 search(str)
             }.execute()
 
-hideKeyboard()
+            hideKeyboard()
         }
     }
 
@@ -70,7 +68,7 @@ hideKeyboard()
             var urlm = "https://api.edamam.com/api/recipes/v2?type=public&q=" + parmSearch + "&app_id=9e739484&app_key=e3b4d6f7a98479690a4e75d907cd721c%09"
              val url = URL(urlm)
             with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "GET"  // optional default is GET
+                requestMethod = "GET"  
 
                 println("\nSent 'GET' request to URL : $url; Response Code : $responseCode")
 
@@ -92,7 +90,6 @@ hideKeyboard()
                             val name = (rec as JSONObject).get("label")
 
                             list.add(name as String)
-                            // Your code here
                         }
                     }
                 }
