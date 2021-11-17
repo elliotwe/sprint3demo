@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             var urlm = "https://api.edamam.com/api/recipes/v2?type=public&q=" + parmSearch + "&app_id=9e739484&app_key=e3b4d6f7a98479690a4e75d907cd721c%09"
              val url = URL(urlm)
             with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "GET"  
+                requestMethod = "GET"
 
                 println("\nSent 'GET' request to URL : $url; Response Code : $responseCode")
 
