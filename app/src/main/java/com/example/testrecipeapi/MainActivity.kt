@@ -29,14 +29,13 @@ class MainActivity : AppCompatActivity() {
 
             val str = txtSearchVal.text.toString()
 
+
             doAsync {
                 search(str)
             }.execute()
 
-            val txtRes = findViewById<TextView>(R.id.txtResult)
 
-            txtRes.text = "hey1\nyou"
-        } 
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -47,6 +46,8 @@ class MainActivity : AppCompatActivity() {
             var parmSearch = searchval
 
             parmSearch.replace(" ", "%20")
+
+            var list = mutableListOf("")
 
             var urlm = "https://api.edamam.com/api/recipes/v2?type=public&q=" + parmSearch + "&app_id=9e739484&app_key=e3b4d6f7a98479690a4e75d907cd721c%09"
              val url = URL(urlm)
@@ -64,7 +65,6 @@ class MainActivity : AppCompatActivity() {
 
                         val ary = (data["hits"] as JSONArray)
 
-                        var list = mutableListOf("")
 
                         for (i in 0 until ary.length()) {
                             val item = ary.getJSONObject(i)
@@ -79,6 +79,24 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            val txtRes = findViewById<TextView>(R.id.txtResult)
+
+
+            this.runOnUiThread(
+
+                java.lang.Runnable {
+
+                    var resultStr = ""
+
+                    for (item : String in list)
+                    {
+                        resultStr += item + "\n"
+                    }
+
+                    txtRes.text = resultStr
+                }
+            )
         }
         catch (e : Exception)
         {
